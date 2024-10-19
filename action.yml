@@ -1,0 +1,10 @@
+name: 'bump-and-publish'
+description: 'Bumps version (or uses manual tag) and runs `deno publish`'
+author: 'openbible-io'
+inputs:
+outputs:
+runs:
+  using: "composite"
+  steps:
+    - run: ${{ github.action_path }}/bump-and-publish.sh
+      shell: bash
