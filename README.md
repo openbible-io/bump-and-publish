@@ -1,9 +1,15 @@
 # bump-and-publish
 
-If pushed commit has a tag, will publish it. Otherwise will bump the previous tag. Will push.
+Makes git the source of truth for versions while still allowing manual tags.
 
-Then will set `version` and `openbible.published` with the current date in `deno.json`.
+## Versioning
+If pushed commit has a tag uses it.
+Otherwise bumps previous tag.
 
-Then runs `deno publish`.
+Will always push tag.
 
-This makes git the source of truth for versions.
+## Packaging
+Sets `version` and `openbible.published` with the current date in `deno.json`.
+
+## Publishing
+Runs `deno publish`.
