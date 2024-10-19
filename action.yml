@@ -1,8 +1,8 @@
 name: 'bump-and-publish'
 description: 'Bumps version (or uses manual tag) and runs `deno publish`'
 author: 'openbible-io'
-inputs:
-outputs:
+inputs: []
+outputs: []
 runs:
   using: "composite"
   steps:
