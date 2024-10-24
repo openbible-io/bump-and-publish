@@ -2,7 +2,7 @@
 set -e
 
 git fetch --tags
-VERSION=$(git describe --tags --match="v[0-9]*" --abbrev=0 HEAD)
+VERSION=$(git describe --tags --match="v[0-9]*.[0-9]*.[0-9]*" --abbrev=0 HEAD)
 if [[ -z $VERSION ]]; then
 	VERSION=$(git tag --sort=committerdate | tail -1)
 	echo "No manual tag, bumping $VERSION"
