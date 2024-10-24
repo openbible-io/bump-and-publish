@@ -1,14 +1,17 @@
 #!/bin/env bash
 set -e
 
+TAG_CMD="git describe --tags --abbrev=0 --match=v[0-9]*.[0-9]*.[0-9]*"
+
 git fetch --tags
-VERSION=$(git describe --tags --match="v[0-9]*.[0-9]*.[0-9]*" --abbrev=0 HEAD)
+VERSION=$($TAG_CMD --exact-match 2>/dev/null || true)
 if [[ -z $VERSION ]]; then
-	VERSION=$(git tag --sort=committerdate | tail -1)
+	VERSION=$($TAG_CMD 2>/dev/null || echo 'v0.0.0')
 	echo "No manual tag, bumping $VERSION"
-	VERSION=$(echo ${VERSION:=v0.0.0} | awk -F. -v OFS=. '{$NF += 1 ; print}')
+	VERSION=$(echo $VERSION | awk -F. -v OFS=. '{$NF += 1 ; print}')
 	git tag $VERSION
 	git push --tags origin master
 fi
+echo "Publishing $VERSION"
 cat deno.json | jq ".openbible.published = \"$(date +%Y-%m-%d)\" | .version = \"${VERSION:1}\"" > deno.json
 deno publish --allow-dirty
