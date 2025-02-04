@@ -1,15 +1,19 @@
-name: 'bump-and-publish'
-description: 'Bumps version (or uses manual tag) and runs `deno publish`'
-author: 'openbible-io'
+name: bump-and-publish
+author: openbible-io
 inputs:
   NPM_TOKEN:
     required: true
 runs:
-  using: "composite"
+  using: composite
   steps:
-    - uses: actions/setup-node@v4 # `bun publish` doesn't yet support provenance
+    - uses: oven-sh/setup-bun@v2
+    - uses: actions/setup-node@v4 # Remove once `bun publish` supports provenance
       with:
-        registry-url: 'https://registry.npmjs.org'
+        registry-url: https://registry.npmjs.org
+    - run: bun install --frozen-lockfile
+    - run: bun test
+    - run: bun tsc
+    - run: bun biome ci
     - run: ${{ github.action_path }}/bump-and-publish.sh
       shell: bash
       env:
