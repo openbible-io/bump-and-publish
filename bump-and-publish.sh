@@ -13,9 +13,10 @@ if [[ -z $VERSION ]]; then
 	git push --tags origin master
 fi
 echo "Publishing $VERSION"
+cat package.json
 cat package.json | \
 	jq ".version = \"${VERSION:1}\""  | \
 	jq ".openbible.published = \"$(date +%Y-%m-%d)\""  | \
 	jq ".repository.url = \"git+$GITHUB_SERVER_URL/$GITHUB_REPOSITORY\"" > package.json
-cat package.json
+ls
 npm publish --access public --provenance
