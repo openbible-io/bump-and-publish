@@ -14,7 +14,9 @@ if [[ -z $VERSION ]]; then
 fi
 echo "Publishing $VERSION"
 cat package.json | \
-	jq ".openbible.published = \"$(date +%Y-%m-%d)\" | .version = \"${VERSION:1}\""  | \
-	jq ".repository.url = \"$GITHUB_SERVER_URL/$GITHUB_REPOSITORY\"" \
+	jq ".version = \"${VERSION:1}\""  | \
+	jq ".openbible.published = \"$(date +%Y-%m-%d)\""  | \
+	jq ".repository.url = \"git+$GITHUB_SERVER_URL/$GITHUB_REPOSITORY\"" \
 	> package.json
+cat package.json
 npm publish --access public --provenance
