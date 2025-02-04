@@ -12,4 +12,4 @@ Tag order:
 Sets `version` and `openbible.published` with the current date in `package.json`.
 
 ## Publishing
-Pushes tag and runs `npm publish`.
+Pushes tag and runs `npm publish` with provenance.
