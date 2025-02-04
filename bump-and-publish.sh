@@ -1,5 +1,5 @@
 #!/bin/env bash
-set -ex
+set -e
 
 TAG_CMD="git describe --tags --abbrev=0 --match=v[0-9]*.[0-9]*.[0-9]*"
 
@@ -13,10 +13,8 @@ if [[ -z $VERSION ]]; then
 	git push --tags origin master
 fi
 echo "Publishing $VERSION"
-cat package.json
 cat package.json | \
-	jq ".version = \"${VERSION:1}\""  | \
-	jq ".openbible.published = \"$(date +%Y-%m-%d)\""  | \
-	jq ".repository.url = \"git+$GITHUB_SERVER_URL/$GITHUB_REPOSITORY\"" > package.json
-ls
-npm publish --access public --provenance
+	jq ".version = \"${VERSION:1}\" |\
+	.openbible.published = \"$(date +%Y-%m-%d)\"  |\
+	.repository.url = \"git+$GITHUB_SERVER_URL/$GITHUB_REPOSITORY\"" > package.json
+npm publish --access public --provenance --dry-run
