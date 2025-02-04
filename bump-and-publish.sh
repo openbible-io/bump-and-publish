@@ -1,5 +1,5 @@
 #!/bin/env bash
-set -e
+set -ex
 
 TAG_CMD="git describe --tags --abbrev=0 --match=v[0-9]*.[0-9]*.[0-9]*"
 
@@ -16,7 +16,6 @@ echo "Publishing $VERSION"
 cat package.json | \
 	jq ".version = \"${VERSION:1}\""  | \
 	jq ".openbible.published = \"$(date +%Y-%m-%d)\""  | \
-	jq ".repository.url = \"git+$GITHUB_SERVER_URL/$GITHUB_REPOSITORY\"" \
-	> package.json
+	jq ".repository.url = \"git+$GITHUB_SERVER_URL/$GITHUB_REPOSITORY\"" > package.json
 cat package.json
 npm publish --access public --provenance
