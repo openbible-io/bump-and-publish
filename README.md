@@ -3,13 +3,13 @@
 Makes git the source of truth for versions while still allowing manual tags.
 
 ## Versioning
-If pushed commit has a tag uses it.
-Otherwise bumps previous tag.
+Tag order:
+- Commit tag
+- Minor bump of previous tag
 
-Will always push tag.
 
 ## Packaging
-Sets `version` and `openbible.published` with the current date in `deno.json`.
+Sets `version` and `openbible.published` with the current date in `package.json`.
 
 ## Publishing
-Runs `deno publish`.
+Pushes tag and runs `npm publish`.

@@ -14,5 +14,4 @@ if [[ -z $VERSION ]]; then
 fi
 echo "Publishing $VERSION"
 cat package.json | jq ".openbible.published = \"$(date +%Y-%m-%d)\" | .version = \"${VERSION:1}\"" > package.json
-env
-bun publish --access public --provenance
+npm publish --access public --provenance

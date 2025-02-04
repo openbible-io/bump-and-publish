@@ -7,6 +7,7 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - uses: actions/setup-node@v4 # `bun publish` doesn't support NPM_TOKEN or provenance
     - run: ${{ github.action_path }}/bump-and-publish.sh
       shell: bash
       env:
