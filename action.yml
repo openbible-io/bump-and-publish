@@ -1,10 +1,13 @@
 name: 'bump-and-publish'
 description: 'Bumps version (or uses manual tag) and runs `deno publish`'
 author: 'openbible-io'
+inputs:
+  NPM_TOKEN:
+    required: true
 runs:
   using: "composite"
   steps:
     - run: ${{ github.action_path }}/bump-and-publish.sh
       shell: bash
       env:
-        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        NPM_TOKEN: ${{ inputs.NPM_TOKEN }}
