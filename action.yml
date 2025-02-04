@@ -7,8 +7,10 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: actions/setup-node@v4 # `bun publish` doesn't support NPM_TOKEN or provenance
+    - uses: actions/setup-node@v4 # `bun publish` doesn't yet support provenance
+      with:
+        registry-url: 'https://registry.npmjs.org'
     - run: ${{ github.action_path }}/bump-and-publish.sh
       shell: bash
       env:
-        NPM_TOKEN: ${{ inputs.NPM_TOKEN }}
+        NODE_AUTH_TOKEN: ${{ inputs.NPM_TOKEN }}
