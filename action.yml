@@ -6,14 +6,9 @@ inputs:
 runs:
   using: composite
   steps:
-    - uses: oven-sh/setup-bun@v2
-    - uses: actions/setup-node@v4 # Remove once `bun publish` supports provenance
+    - uses: actions/setup-node@v4 # Replace once `bun publish` supports provenance
       with:
         registry-url: https://registry.npmjs.org
-    - run: bun install --frozen-lockfile
-    - run: bun test
-    - run: bun tsc
-    - run: bun biome ci
     - run: ${{ github.action_path }}/bump-and-publish.sh
       shell: bash
       env:
