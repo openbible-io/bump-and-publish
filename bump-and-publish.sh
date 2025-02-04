@@ -13,5 +13,5 @@ if [[ -z $VERSION ]]; then
 	git push --tags origin master
 fi
 echo "Publishing $VERSION"
-cat deno.json | jq ".openbible.published = \"$(date +%Y-%m-%d)\" | .version = \"${VERSION:1}\"" > deno.json
-deno publish --allow-dirty
+cat package.json | jq ".openbible.published = \"$(date +%Y-%m-%d)\" | .version = \"${VERSION:1}\"" > package.json
+bun publish --access public --provenance
