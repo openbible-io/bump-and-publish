@@ -17,4 +17,4 @@ cat package.json | \
 	jq ".version = \"${VERSION:1}\" |\
 	.openbible.published = \"$(date +%Y-%m-%d)\"  |\
 	.repository.url = \"git+$GITHUB_SERVER_URL/$GITHUB_REPOSITORY\"" > package.json
-npm publish --access public --provenance --dry-run
+npm publish --access public --provenance
